@@ -1,24 +1,12 @@
 with customers_cte as (
 
-    select
-        C_CUSTKEY as customer_id,
-        C_NAME,
-        C_NATIONKEY
-
-    from customers
+    select * from {{ ref('stg_customers') }}
 
 ),
 
 orders_cte as (
 
-    select
-        O_ORDERKEY as order_id,
-        O_CUSTKEY as customer_id,
-        MAX(O_ORDERDATE) as most_recent_order_date,
-        SUM(O_TOTALPRICE) as total_price
-
-    from orders
-    group by 1,2
+    select * from {{ ref('stg_orders') }}
 
 ),
 
